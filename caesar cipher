@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+#include<stdlib.h>
+void encrypt(char *s,int key){
+    for(int i=0;s[i]!='\0';++i){
+        char ch=s[i];
+        if(isalpha(ch)){
+            char offset = isupper(ch)?'A':'a';
+            ch=(ch - offset + key)% 26 + offset;
+        }
+        s[i]=ch;
+    }
+}
+
+void decrypt(char *s,int key){
+    for(int i=0;s[i]!='\0';i++){
+        char ch=s[i];
+        if(isalpha(ch)){
+            char offset=isupper(ch)? 'A':'a';
+            ch=(ch-offset-key+26)%26+offset;
+        }
+        s[i]=ch;
+    }
+}
+int main(){
+    char s[100];
+    int key;
+    printf("Enter the plaintext:");
+    fgets(s,sizeof(s),stdin);
+    printf("Enter the Key:");
+    scanf("%d",&key);
+    encrypt(s,key);
+    printf("Encrypted value: %s\n",s);
+    decrypt(s,key);
+     printf("Decrypted value: %s\n",s);
+    return 0;
+}
